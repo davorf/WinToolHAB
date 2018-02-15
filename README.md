@@ -2,7 +2,7 @@
 
 ## Disclaimer 
 
-**The application hasn't been thoroughly tested. Use at your own risk. I am not responsible for any damage that may arise from using this applicaton.**
+**The application hasn't been thoroughly tested. Use at your own risk. I am not responsible for any damage that may arise from using this application.**
 
 ## Prerequisites
 
