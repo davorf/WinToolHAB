@@ -1,0 +1,17 @@
+userdata\etc\all.policy
+userdata\etc\branding.properties
+userdata\etc\branding-ssh.properties
+userdata\etc\config.properties
+userdata\etc\custom.properties
+userdata\etc\distribution.info
+userdata\etc\jre.properties
+userdata\etc\org.ops4j.pax.url.mvn.cfg
+userdata\etc\profile.cfg
+userdata\etc\startup.properties
+userdata\etc\version.properties
+userdata\etc\system.properties
+userdata\etc\custom.system.properties
+userdata\etc\org.apache.karaf*
+userdata\cache
+userdata\tmp
+runtime
