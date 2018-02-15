@@ -362,7 +362,17 @@ namespace WinToolHAB.DMCore
                     (
                         (MethodInvoker)delegate
                         {
-                            LogObject.ForeColor = Color.Red;
+                            LogObject.SelectionColor = Color.Red;
+                        }
+                    );
+                }
+                else
+                {
+                    MainForm.Invoke
+                    (
+                        (MethodInvoker)delegate
+                        {
+                            LogObject.SelectionColor = Color.Black;
                         }
                     );
                 }
@@ -378,14 +388,12 @@ namespace WinToolHAB.DMCore
             else
             {
                 if (BoldLogLine)
-                {
                     LogObject.SelectionFont = new Font(LogObject.Font, FontStyle.Bold);
-                }
 
                 if (ErrorOccured)
-                {
-                    LogObject.ForeColor = Color.Red;
-                }
+                    LogObject.SelectionColor = Color.Red;
+                else
+                    LogObject.SelectionColor = Color.Black;
 
                 LogObject.AppendText(LogLine + Environment.NewLine);
             }
