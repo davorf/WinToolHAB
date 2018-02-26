@@ -70,6 +70,8 @@
             this.tbxRestoreBackupFile = new System.Windows.Forms.TextBox();
             this.lblRestoreBackupFile = new System.Windows.Forms.Label();
             this.tbpUpdate = new System.Windows.Forms.TabPage();
+            this.tbxUpdateURL = new System.Windows.Forms.TextBox();
+            this.lblUpdateURL = new System.Windows.Forms.Label();
             this.cbxUpdateType = new System.Windows.Forms.ComboBox();
             this.lblUpdateType = new System.Windows.Forms.Label();
             this.btnClearUpdateLog = new System.Windows.Forms.Button();
@@ -86,8 +88,6 @@
             this.btnUpdatePath = new System.Windows.Forms.Button();
             this.tbxUpdatePath = new System.Windows.Forms.TextBox();
             this.lblUpdatePath = new System.Windows.Forms.Label();
-            this.lblUpdateURL = new System.Windows.Forms.Label();
-            this.tbxUpdateURL = new System.Windows.Forms.TextBox();
             this.mnuMain.SuspendLayout();
             this.tclMain.SuspendLayout();
             this.tbpGeneral.SuspendLayout();
@@ -158,6 +158,7 @@
             // 
             // btnOpenHABPath
             // 
+            this.btnOpenHABPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOpenHABPath.Location = new System.Drawing.Point(571, 65);
             this.btnOpenHABPath.Name = "btnOpenHABPath";
             this.btnOpenHABPath.Size = new System.Drawing.Size(23, 23);
@@ -168,6 +169,8 @@
             // 
             // tbxOpenHABPath
             // 
+            this.tbxOpenHABPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbxOpenHABPath.Location = new System.Drawing.Point(130, 67);
             this.tbxOpenHABPath.Name = "tbxOpenHABPath";
             this.tbxOpenHABPath.Size = new System.Drawing.Size(435, 20);
@@ -185,6 +188,8 @@
             // tbxServiceName
             // 
             this.tbxServiceName.AcceptsReturn = true;
+            this.tbxServiceName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbxServiceName.Location = new System.Drawing.Point(130, 41);
             this.tbxServiceName.Name = "tbxServiceName";
             this.tbxServiceName.Size = new System.Drawing.Size(464, 20);
@@ -210,6 +215,8 @@
             // 
             // cbxRunType
             // 
+            this.cbxRunType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cbxRunType.DisplayMember = "WTH_RUN_TYPE.RT_DESCRIPTION";
             this.cbxRunType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxRunType.FormattingEnabled = true;
@@ -250,6 +257,7 @@
             // 
             // lblKeepLastConfigurationBackups
             // 
+            this.lblKeepLastConfigurationBackups.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblKeepLastConfigurationBackups.AutoSize = true;
             this.lblKeepLastConfigurationBackups.Location = new System.Drawing.Point(480, 70);
             this.lblKeepLastConfigurationBackups.Name = "lblKeepLastConfigurationBackups";
@@ -270,6 +278,7 @@
             // 
             // nudKeepLastConfigurationBackups
             // 
+            this.nudKeepLastConfigurationBackups.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.nudKeepLastConfigurationBackups.Location = new System.Drawing.Point(544, 67);
             this.nudKeepLastConfigurationBackups.Name = "nudKeepLastConfigurationBackups";
             this.nudKeepLastConfigurationBackups.Size = new System.Drawing.Size(50, 20);
@@ -278,6 +287,7 @@
             // 
             // lblKeepLastFullBackups
             // 
+            this.lblKeepLastFullBackups.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblKeepLastFullBackups.AutoSize = true;
             this.lblKeepLastFullBackups.Location = new System.Drawing.Point(480, 70);
             this.lblKeepLastFullBackups.Name = "lblKeepLastFullBackups";
@@ -307,6 +317,7 @@
             // 
             // nudKeepLastFullBackups
             // 
+            this.nudKeepLastFullBackups.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.nudKeepLastFullBackups.Location = new System.Drawing.Point(544, 67);
             this.nudKeepLastFullBackups.Name = "nudKeepLastFullBackups";
             this.nudKeepLastFullBackups.Size = new System.Drawing.Size(50, 20);
@@ -315,6 +326,7 @@
             // 
             // btnClearBackupLog
             // 
+            this.btnClearBackupLog.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClearBackupLog.Location = new System.Drawing.Point(438, 342);
             this.btnClearBackupLog.Name = "btnClearBackupLog";
             this.btnClearBackupLog.Size = new System.Drawing.Size(75, 23);
@@ -325,6 +337,9 @@
             // 
             // rtbBackupLog
             // 
+            this.rtbBackupLog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.rtbBackupLog.Location = new System.Drawing.Point(130, 119);
             this.rtbBackupLog.Name = "rtbBackupLog";
             this.rtbBackupLog.ReadOnly = true;
@@ -345,6 +360,7 @@
             // 
             // btnBackup
             // 
+            this.btnBackup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBackup.Location = new System.Drawing.Point(519, 342);
             this.btnBackup.Name = "btnBackup";
             this.btnBackup.Size = new System.Drawing.Size(75, 23);
@@ -364,6 +380,8 @@
             // 
             // cbxBackupType
             // 
+            this.cbxBackupType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cbxBackupType.DisplayMember = "WTH_BACKUP_TYPE.BT_DESCRIPTION";
             this.cbxBackupType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxBackupType.FormattingEnabled = true;
@@ -385,6 +403,8 @@
             // 
             // pbrBackupProgress
             // 
+            this.pbrBackupProgress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pbrBackupProgress.Location = new System.Drawing.Point(130, 93);
             this.pbrBackupProgress.Name = "pbrBackupProgress";
             this.pbrBackupProgress.Size = new System.Drawing.Size(464, 20);
@@ -392,6 +412,7 @@
             // 
             // btnBackupPath
             // 
+            this.btnBackupPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBackupPath.Location = new System.Drawing.Point(571, 39);
             this.btnBackupPath.Name = "btnBackupPath";
             this.btnBackupPath.Size = new System.Drawing.Size(23, 23);
@@ -402,6 +423,8 @@
             // 
             // tbxBackupPath
             // 
+            this.tbxBackupPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbxBackupPath.Location = new System.Drawing.Point(130, 41);
             this.tbxBackupPath.Name = "tbxBackupPath";
             this.tbxBackupPath.Size = new System.Drawing.Size(435, 20);
@@ -437,6 +460,7 @@
             // 
             // btnClearRestoreLog
             // 
+            this.btnClearRestoreLog.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClearRestoreLog.Location = new System.Drawing.Point(438, 342);
             this.btnClearRestoreLog.Name = "btnClearRestoreLog";
             this.btnClearRestoreLog.Size = new System.Drawing.Size(75, 23);
@@ -447,6 +471,9 @@
             // 
             // rtbRestoreLog
             // 
+            this.rtbRestoreLog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.rtbRestoreLog.Location = new System.Drawing.Point(130, 67);
             this.rtbRestoreLog.Name = "rtbRestoreLog";
             this.rtbRestoreLog.ReadOnly = true;
@@ -466,6 +493,7 @@
             // 
             // btnRestore
             // 
+            this.btnRestore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRestore.Location = new System.Drawing.Point(519, 342);
             this.btnRestore.Name = "btnRestore";
             this.btnRestore.Size = new System.Drawing.Size(75, 23);
@@ -485,6 +513,8 @@
             // 
             // pbrRestoreProgress
             // 
+            this.pbrRestoreProgress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pbrRestoreProgress.Location = new System.Drawing.Point(130, 41);
             this.pbrRestoreProgress.Name = "pbrRestoreProgress";
             this.pbrRestoreProgress.Size = new System.Drawing.Size(464, 20);
@@ -492,6 +522,7 @@
             // 
             // btnRestoreBackupFile
             // 
+            this.btnRestoreBackupFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRestoreBackupFile.Location = new System.Drawing.Point(571, 13);
             this.btnRestoreBackupFile.Name = "btnRestoreBackupFile";
             this.btnRestoreBackupFile.Size = new System.Drawing.Size(23, 23);
@@ -502,6 +533,8 @@
             // 
             // tbxRestoreBackupFile
             // 
+            this.tbxRestoreBackupFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbxRestoreBackupFile.Location = new System.Drawing.Point(130, 15);
             this.tbxRestoreBackupFile.Name = "tbxRestoreBackupFile";
             this.tbxRestoreBackupFile.Size = new System.Drawing.Size(435, 20);
@@ -544,8 +577,28 @@
             this.tbpUpdate.Text = "Update";
             this.tbpUpdate.UseVisualStyleBackColor = true;
             // 
+            // tbxUpdateURL
+            // 
+            this.tbxUpdateURL.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbxUpdateURL.Location = new System.Drawing.Point(130, 67);
+            this.tbxUpdateURL.Name = "tbxUpdateURL";
+            this.tbxUpdateURL.Size = new System.Drawing.Size(464, 20);
+            this.tbxUpdateURL.TabIndex = 17;
+            // 
+            // lblUpdateURL
+            // 
+            this.lblUpdateURL.AutoSize = true;
+            this.lblUpdateURL.Location = new System.Drawing.Point(10, 70);
+            this.lblUpdateURL.Name = "lblUpdateURL";
+            this.lblUpdateURL.Size = new System.Drawing.Size(70, 13);
+            this.lblUpdateURL.TabIndex = 16;
+            this.lblUpdateURL.Text = "Update &URL:";
+            // 
             // cbxUpdateType
             // 
+            this.cbxUpdateType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cbxUpdateType.DisplayMember = "WTH_UPDATE_TYPE.UT_DESCRIPTION";
             this.cbxUpdateType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxUpdateType.FormattingEnabled = true;
@@ -567,6 +620,7 @@
             // 
             // btnClearUpdateLog
             // 
+            this.btnClearUpdateLog.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClearUpdateLog.Location = new System.Drawing.Point(438, 342);
             this.btnClearUpdateLog.Name = "btnClearUpdateLog";
             this.btnClearUpdateLog.Size = new System.Drawing.Size(75, 23);
@@ -577,6 +631,7 @@
             // 
             // btnUpdate
             // 
+            this.btnUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnUpdate.Location = new System.Drawing.Point(519, 342);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(75, 23);
@@ -587,6 +642,9 @@
             // 
             // rtbUpdateLog
             // 
+            this.rtbUpdateLog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.rtbUpdateLog.Location = new System.Drawing.Point(130, 145);
             this.rtbUpdateLog.Name = "rtbUpdateLog";
             this.rtbUpdateLog.ReadOnly = true;
@@ -616,6 +674,8 @@
             // 
             // pbrUpdateProgress
             // 
+            this.pbrUpdateProgress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pbrUpdateProgress.Location = new System.Drawing.Point(130, 119);
             this.pbrUpdateProgress.Name = "pbrUpdateProgress";
             this.pbrUpdateProgress.Size = new System.Drawing.Size(464, 20);
@@ -623,6 +683,8 @@
             // 
             // cbxBeforeUpdating
             // 
+            this.cbxBeforeUpdating.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cbxBeforeUpdating.DisplayMember = "WTH_BEFORE_UPDATING.BU_DESCRIPTION";
             this.cbxBeforeUpdating.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxBeforeUpdating.FormattingEnabled = true;
@@ -644,6 +706,7 @@
             // 
             // btnUpdateFile
             // 
+            this.btnUpdateFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnUpdateFile.Location = new System.Drawing.Point(571, 65);
             this.btnUpdateFile.Name = "btnUpdateFile";
             this.btnUpdateFile.Size = new System.Drawing.Size(23, 23);
@@ -654,6 +717,8 @@
             // 
             // tbxUpdateFile
             // 
+            this.tbxUpdateFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbxUpdateFile.Location = new System.Drawing.Point(130, 67);
             this.tbxUpdateFile.Name = "tbxUpdateFile";
             this.tbxUpdateFile.Size = new System.Drawing.Size(435, 20);
@@ -670,6 +735,7 @@
             // 
             // btnUpdatePath
             // 
+            this.btnUpdatePath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnUpdatePath.Location = new System.Drawing.Point(571, 13);
             this.btnUpdatePath.Name = "btnUpdatePath";
             this.btnUpdatePath.Size = new System.Drawing.Size(23, 23);
@@ -680,6 +746,8 @@
             // 
             // tbxUpdatePath
             // 
+            this.tbxUpdatePath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbxUpdatePath.Location = new System.Drawing.Point(130, 15);
             this.tbxUpdatePath.Name = "tbxUpdatePath";
             this.tbxUpdatePath.Size = new System.Drawing.Size(435, 20);
@@ -694,22 +762,6 @@
             this.lblUpdatePath.TabIndex = 0;
             this.lblUpdatePath.Text = "Update &path:";
             // 
-            // lblUpdateURL
-            // 
-            this.lblUpdateURL.AutoSize = true;
-            this.lblUpdateURL.Location = new System.Drawing.Point(10, 70);
-            this.lblUpdateURL.Name = "lblUpdateURL";
-            this.lblUpdateURL.Size = new System.Drawing.Size(70, 13);
-            this.lblUpdateURL.TabIndex = 16;
-            this.lblUpdateURL.Text = "Update &URL:";
-            // 
-            // tbxUpdateURL
-            // 
-            this.tbxUpdateURL.Location = new System.Drawing.Point(130, 67);
-            this.tbxUpdateURL.Name = "tbxUpdateURL";
-            this.tbxUpdateURL.Size = new System.Drawing.Size(464, 20);
-            this.tbxUpdateURL.TabIndex = 17;
-            // 
             // WTHFrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -718,6 +770,7 @@
             this.Controls.Add(this.mnuMain);
             this.Controls.Add(this.tclMain);
             this.MainMenuStrip = this.mnuMain;
+            this.MinimumSize = new System.Drawing.Size(640, 480);
             this.Name = "WTHFrmMain";
             this.Padding = new System.Windows.Forms.Padding(5, 0, 5, 5);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

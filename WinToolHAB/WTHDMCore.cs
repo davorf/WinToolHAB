@@ -77,7 +77,7 @@ namespace WinToolHAB.DMCore
                 MainForm.UpdateProgress.Value = e.ProgressPercentage;
             else
                 MainForm.BackupProgress.Value = e.ProgressPercentage;
-        }   
+        }
 
         private void bwrCompressConfigurationBackup_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -138,7 +138,7 @@ namespace WinToolHAB.DMCore
             bwrPerformUpdate.ReportProgress(OpenHABDownloadProgressArguments.ProgressPercentage);
         }
 
-        private void DownloadFileCompletedCallback (object sender, AsyncCompletedEventArgs OpenHABDownloadCompletedArguments)
+        private void DownloadFileCompletedCallback(object sender, AsyncCompletedEventArgs OpenHABDownloadCompletedArguments)
         {
             UpdateDownloadComplete = true;
         }
@@ -291,7 +291,7 @@ namespace WinToolHAB.DMCore
 
                 MainForm.BeforeUpdating.SelectedValue = BeforeUpdatingValue;
                 MainForm.BeforeUpdatingValue = BeforeUpdatingValue;
-            }                
+            }
 
             WTHRegistryKey.Close();
         }
@@ -427,6 +427,8 @@ namespace WinToolHAB.DMCore
 
         private void CreateFullBackup()
         {
+            ResetSummary();
+
             int NumberOfBackupsToDelete = 0;
             string BackupZipFileName = "";
 
@@ -453,10 +455,14 @@ namespace WinToolHAB.DMCore
 
                             FileToDelete.Delete();
 
+                            SummaryBackupsDeleteSucceeded++;
+
                             WriteLog("Deleting full backup: " + FileToDelete.Name + Environment.NewLine, true);
                         }
                         catch (Exception DeleteException)
                         {
+                            SummaryBackupsDeleteFailed++;
+
                             WriteLog("Cannot delete full backup: " + FileToDelete.Name + " (" + DeleteException.Message + ")" + Environment.NewLine, true, true);
                         }
                     }
@@ -493,21 +499,29 @@ namespace WinToolHAB.DMCore
                     else
                         bwrCompressFullBackup.ReportProgress(CurrentItemNumber * 100 / TotalNumberOfItems);
 
+                    SummaryFilesCompressSucceeded++;
+
                     WriteLog("Compressing file: " + FileToBackup);
                 }
                 catch (Exception CompressionException)
                 {
+                    SummaryFilesCompressFailed++;
+
                     WriteLog("Cannot compress file: " + FileToBackup + " (" + CompressionException.Message + ")", false, true);
                 }
             }
 
             BackupZipFile.Dispose();
 
+            WriteSummary("Full backup summary");
+
             WriteLog(Environment.NewLine + "Full backup complete" + Environment.NewLine, true);
         }
 
         private void CreateConfigurationBackup()
         {
+            ResetSummary();
+
             int NumberOfBackupsToDelete = 0;
             string BackupZipFileName = "";
 
@@ -535,10 +549,14 @@ namespace WinToolHAB.DMCore
 
                             FileToDelete.Delete();
 
+                            SummaryBackupsDeleteSucceeded++;
+
                             WriteLog("Deleting configuration backup: " + FileToDelete.Name + Environment.NewLine, true);
                         }
                         catch (Exception DeleteException)
                         {
+                            SummaryBackupsDeleteFailed++;
+
                             WriteLog("Cannot delete configuration backup: " + FileToDelete.Name + " (" + DeleteException.Message + ")" + Environment.NewLine, true, true);
                         }
                     }
@@ -575,10 +593,14 @@ namespace WinToolHAB.DMCore
                     else
                         bwrCompressConfigurationBackup.ReportProgress(CurrentItemNumber * 100 / TotalNumberOfItems);
 
+                    SummaryFilesCompressSucceeded++;
+
                     WriteLog("Compressing file: " + FileToBackup);
                 }
                 catch (Exception CompressionException)
                 {
+                    SummaryFilesCompressFailed++;
+
                     WriteLog("Cannot compress file: " + FileToBackup + " (" + CompressionException.Message + ")", false, true);
                 }
             }
@@ -596,23 +618,31 @@ namespace WinToolHAB.DMCore
                     else
                         bwrCompressConfigurationBackup.ReportProgress(CurrentItemNumber * 100 / TotalNumberOfItems);
 
+                    SummaryFilesCompressSucceeded++;
+
                     WriteLog("Compressing file: " + FileToBackup);
                 }
                 catch (Exception CompressionException)
                 {
+                    SummaryFilesCompressFailed++;
+
                     WriteLog("Cannot compress file: " + FileToBackup + " (" + CompressionException.Message + ")", false, true);
                 }
             }
 
             BackupZipFile.Dispose();
 
+            WriteSummary("Configuration backup summary");
+
             WriteLog(Environment.NewLine + "Configuration backup complete" + Environment.NewLine, true);
         }
 
         private void RestoreBackup()
-        {            
+        {
+            ResetSummary();
+
             if (!StopOpenHABService())
-                return;
+                return;            
 
             ZipArchive ZipFileToExtract = null;
 
@@ -641,11 +671,24 @@ namespace WinToolHAB.DMCore
 
                 if (!Directory.Exists(new Uri(Path.Combine(MainForm.OpenHABPath.Text.Trim(), ZipEntryToExtract.FullName)).LocalPath.Substring(0, new Uri(Path.Combine(MainForm.OpenHABPath.Text.Trim(), ZipEntryToExtract.FullName)).LocalPath.Length - ZipEntryToExtract.Name.Length)))
                 {
-                    Directory.CreateDirectory(new Uri(Path.Combine(MainForm.OpenHABPath.Text.Trim(), ZipEntryToExtract.FullName)).LocalPath.Substring(0, new Uri(Path.Combine(MainForm.OpenHABPath.Text.Trim(), ZipEntryToExtract.FullName)).LocalPath.Length - ZipEntryToExtract.Name.Length));
+                    try
+                    {
+                        Directory.CreateDirectory(new Uri(Path.Combine(MainForm.OpenHABPath.Text.Trim(), ZipEntryToExtract.FullName)).LocalPath.Substring(0, new Uri(Path.Combine(MainForm.OpenHABPath.Text.Trim(), ZipEntryToExtract.FullName)).LocalPath.Length - ZipEntryToExtract.Name.Length));
 
-                    bwrRestoreBackup.ReportProgress(CurrentItemNumber * 100 / TotalNumberOfItems);
+                        bwrRestoreBackup.ReportProgress(CurrentItemNumber * 100 / TotalNumberOfItems);
 
-                    WriteLog("Creating folder: " + new Uri(Path.Combine(MainForm.OpenHABPath.Text.Trim(), ZipEntryToExtract.FullName)).LocalPath.Substring(0, new Uri(Path.Combine(MainForm.OpenHABPath.Text.Trim(), ZipEntryToExtract.FullName)).LocalPath.Length - ZipEntryToExtract.Name.Length));
+                        SummaryFoldersCreateSucceeded++;
+
+                        WriteLog("Creating folder: " + new Uri(Path.Combine(MainForm.OpenHABPath.Text.Trim(), ZipEntryToExtract.FullName)).LocalPath.Substring(0, new Uri(Path.Combine(MainForm.OpenHABPath.Text.Trim(), ZipEntryToExtract.FullName)).LocalPath.Length - ZipEntryToExtract.Name.Length));
+                    }
+                    catch (Exception RestoreException)
+                    {
+                        bwrRestoreBackup.ReportProgress(CurrentItemNumber * 100 / TotalNumberOfItems);
+
+                        SummaryFoldersCreateFailed++;
+
+                        WriteLog("Cannot create folder: " + new Uri(Path.Combine(MainForm.OpenHABPath.Text.Trim(), ZipEntryToExtract.FullName)).LocalPath.Substring(0, new Uri(Path.Combine(MainForm.OpenHABPath.Text.Trim(), ZipEntryToExtract.FullName)).LocalPath.Length - ZipEntryToExtract.Name.Length) + " (" + RestoreException.Message + ")", false, true);
+                    }
                 }
 
                 try
@@ -654,11 +697,15 @@ namespace WinToolHAB.DMCore
 
                     bwrRestoreBackup.ReportProgress(CurrentItemNumber * 100 / TotalNumberOfItems);
 
+                    SummaryFilesExtractSucceeded++;
+
                     WriteLog("Extracting file: " + ZipEntryToExtract.FullName);
                 }
                 catch (Exception RestoreException)
                 {
                     bwrRestoreBackup.ReportProgress(CurrentItemNumber * 100 / TotalNumberOfItems);
+
+                    SummaryFilesExtractFailed++;
 
                     WriteLog("Cannot extract file: " + ZipEntryToExtract.FullName + " (" + RestoreException.Message + ")", false, true);
                 }
@@ -666,11 +713,15 @@ namespace WinToolHAB.DMCore
 
             ZipFileToExtract.Dispose();
 
+            WriteSummary("Restore summary");
+
             WriteLog(Environment.NewLine + "Restore complete" + Environment.NewLine, true);
         }
 
         private void UpdateOpenHAB()
         {
+            ResetSummary();
+
             string OpenHABUpdateFileWithPath;
 
             if (MainForm.UpdateTypeValue == 1)
@@ -695,13 +746,13 @@ namespace WinToolHAB.DMCore
                 OpenHABDownload.DownloadFileCompleted += new AsyncCompletedEventHandler(DownloadFileCompletedCallback);
 
                 try
-                {                    
+                {
                     OpenHABDownload.DownloadFileAsync(new System.Uri(MainForm.UpdateURL.Text.Trim()), OpenHABUpdateFileWithPath.Trim());
 
                     while (!UpdateDownloadComplete)
                     {
                         Application.DoEvents();
-                    }    
+                    }
                 }
                 catch (Exception DownloadException)
                 {
@@ -717,7 +768,7 @@ namespace WinToolHAB.DMCore
             else
             {
                 OpenHABUpdateFileWithPath = MainForm.UpdateFile.Text.Trim();
-            }            
+            }
 
             if (!StopOpenHABService())
                 return;
@@ -764,10 +815,14 @@ namespace WinToolHAB.DMCore
                     {
                         Directory.Delete(new Uri(MainForm.OpenHABPath.Text.Trim() + "\\" + FileToDelete.ToString().Trim()).LocalPath, true);
 
+                        SummaryFoldersDeleteSucceeded++;
+
                         WriteLog("Deleting folder: " + new Uri(MainForm.OpenHABPath.Text.Trim() + "\\" + FileToDelete.ToString().Trim()).LocalPath);
                     }
                     catch (Exception DeleteException)
                     {
+                        SummaryFoldersDeleteFailed++;
+
                         WriteLog("Cannot delete folder: " + new Uri(MainForm.OpenHABPath.Text.Trim() + "\\" + FileToDelete.ToString().Trim()).LocalPath + " (" + DeleteException.Message + ")", false, true);
                     }
                 }
@@ -779,10 +834,14 @@ namespace WinToolHAB.DMCore
                         {
                             File.Delete(SingleFile.ToString().Trim());
 
+                            SummaryFilesDeleteSucceeded++;
+
                             WriteLog("Deleting file: " + SingleFile.ToString().Trim());
                         }
                         catch (Exception DeleteException)
                         {
+                            SummaryFilesDeleteFailed++;
+
                             WriteLog("Cannot delete file: " + SingleFile.ToString().Trim() + " (" + DeleteException.Message + ")", false, true);
                         }
                     }
@@ -803,10 +862,14 @@ namespace WinToolHAB.DMCore
 
                             bwrPerformUpdate.ReportProgress(CurrentItemNumber * 100 / TotalNumberOfItems);
 
+                            SummaryFoldersCreateSucceeded++;
+
                             WriteLog("Creating folder: " + new Uri(Path.Combine(MainForm.OpenHABPath.Text.Trim(), ZipEntryToExtract.FullName)).LocalPath.Substring(0, new Uri(Path.Combine(MainForm.OpenHABPath.Text.Trim(), ZipEntryToExtract.FullName)).LocalPath.Length - ZipEntryToExtract.Name.Length));
                         }
                         catch (Exception UpdateException)
                         {
+                            SummaryFoldersCreateFailed++;
+
                             WriteLog("Cannot create folder: " + new Uri(Path.Combine(MainForm.OpenHABPath.Text.Trim(), ZipEntryToExtract.FullName)).LocalPath.Substring(0, new Uri(Path.Combine(MainForm.OpenHABPath.Text.Trim(), ZipEntryToExtract.FullName)).LocalPath.Length - ZipEntryToExtract.Name.Length) + " (" + UpdateException.Message + ")", false, true);
                         }
                     }
@@ -819,11 +882,15 @@ namespace WinToolHAB.DMCore
 
                         bwrPerformUpdate.ReportProgress(CurrentItemNumber * 100 / TotalNumberOfItems);
 
+                        SummaryFilesExtractSucceeded++;
+
                         WriteLog("Extracting file: " + ZipEntryToExtract.FullName);
                     }
                     catch (Exception UpdateException)
                     {
                         bwrPerformUpdate.ReportProgress(CurrentItemNumber * 100 / TotalNumberOfItems);
+
+                        SummaryFilesExtractSkipped++;
 
                         WriteLog("Skipping file extraction: " + ZipEntryToExtract.FullName + " (" + UpdateException.Message.ToString() + ")");
                     }
@@ -831,6 +898,8 @@ namespace WinToolHAB.DMCore
             }
 
             ZipFileToExtract.Dispose();
+
+            WriteSummary("Update summary");
 
             WriteLog(Environment.NewLine + "Update complete" + Environment.NewLine, true);
         }
@@ -905,6 +974,67 @@ namespace WinToolHAB.DMCore
             }
         }
 
+        private void ResetSummary()
+        {
+            SummaryBackupsDeleteSucceeded = 0;
+            SummaryBackupsDeleteFailed = 0;
+            SummaryFoldersDeleteSucceeded = 0;
+            SummaryFoldersDeleteFailed = 0;
+            SummaryFoldersCreateSucceeded = 0;
+            SummaryFoldersCreateFailed = 0;
+            SummaryFilesDeleteSucceeded = 0;
+            SummaryFilesDeleteFailed = 0;
+            SummaryFilesCompressSucceeded = 0;
+            SummaryFilesCompressFailed = 0;
+            SummaryFilesExtractSucceeded = 0;
+            SummaryFilesExtractFailed = 0;
+            SummaryFilesExtractSkipped = 0;
+        }
+
+        private void WriteSummary(string SummaryCaption)
+        {
+            WriteLog(Environment.NewLine + SummaryCaption + ":", true);            
+
+            if (SummaryBackupsDeleteSucceeded != 0)
+                WriteLog("Backups - deleting successful: " + SummaryBackupsDeleteSucceeded.ToString());
+
+            if (SummaryBackupsDeleteFailed != 0)
+                WriteLog("Backups - deleting failed: " + SummaryBackupsDeleteFailed.ToString(), false, true);
+
+            if (SummaryFoldersDeleteSucceeded != 0)
+                WriteLog("Folders - deleting successful: " + SummaryFoldersDeleteSucceeded.ToString());
+
+            if (SummaryFoldersDeleteFailed != 0)
+                WriteLog("Folders - deleting failed: " + SummaryFoldersDeleteFailed.ToString(), false, true);
+
+            if (SummaryFoldersCreateSucceeded != 0)
+                WriteLog("Folders - creating successful: " + SummaryFoldersCreateSucceeded.ToString());
+
+            if (SummaryFoldersCreateFailed != 0)
+                WriteLog("Folders - creating failed: " + SummaryFoldersCreateFailed.ToString(), false, true);
+
+            if (SummaryFilesDeleteSucceeded != 0)
+                WriteLog("Files - deleting successful: " + SummaryFilesDeleteSucceeded.ToString());
+
+            if (SummaryFilesDeleteFailed != 0)
+                WriteLog("Files - deleting failed: " + SummaryFilesDeleteFailed.ToString(), false, true);
+
+            if (SummaryFilesCompressSucceeded != 0)
+                WriteLog("Files - compressing successful: " + SummaryFilesCompressSucceeded.ToString());
+
+            if (SummaryFilesCompressFailed != 0)
+                WriteLog("Files - compressing failed: " + SummaryFilesCompressFailed.ToString(), false, true);
+
+            if (SummaryFilesExtractSucceeded != 0)
+                WriteLog("Files - extracting successful: " + SummaryFilesExtractSucceeded.ToString());
+
+            if (SummaryFilesExtractSkipped != 0)
+                WriteLog("Files - extracting skipped: " + SummaryFilesExtractSkipped.ToString());
+
+            if (SummaryFilesExtractFailed != 0)
+                WriteLog("Files - extracting failed: " + SummaryFilesExtractFailed.ToString(), false, true);
+        }
+
         private OperationType operationType;
         public OperationType OperationTypeId
         {
@@ -935,7 +1065,22 @@ namespace WinToolHAB.DMCore
         }
 
         private RichTextBox LogObject { get; set; }
+
         public int TotalNumberOfItems { get; set; }
         public int CurrentItemNumber { get; set; }
+
+        public int SummaryBackupsDeleteSucceeded { get; set; }
+        public int SummaryBackupsDeleteFailed { get; set; }
+        public int SummaryFoldersDeleteSucceeded { get; set; }
+        public int SummaryFoldersDeleteFailed { get; set; }
+        public int SummaryFoldersCreateSucceeded { get; set; }
+        public int SummaryFoldersCreateFailed { get; set; }
+        public int SummaryFilesDeleteSucceeded { get; set; }
+        public int SummaryFilesDeleteFailed { get; set; }
+        public int SummaryFilesCompressSucceeded { get; set; }
+        public int SummaryFilesCompressFailed { get; set; }
+        public int SummaryFilesExtractSucceeded { get; set; }
+        public int SummaryFilesExtractFailed { get; set; }
+        public int SummaryFilesExtractSkipped { get; set; }
     }
 }
